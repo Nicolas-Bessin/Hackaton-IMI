@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from src.utils.ask_question_to_pdf import ask_question_to_pdf
+from src.utils.ask_question_to_pdf import ask_question_to_pdf, gpt3_completion
 
 
 app = Flask(__name__)
@@ -11,6 +11,6 @@ def hello_world():
 @app.route("/prompt", methods=["POST"])
 def prompt():
     question = request.form["prompt"]
-    answer = ask_question_to_pdf(question)
+    answer = gpt3_completion(question)
     return {"answer" : answer }, 200
             

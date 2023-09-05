@@ -13,4 +13,6 @@ def prompt():
     question = request.form["prompt"]
     answer = ask_question_to_pdf(question)
     return {"answer" : answer }, 200
-            
+
+
+##test

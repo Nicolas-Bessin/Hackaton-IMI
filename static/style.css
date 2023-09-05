@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
   }
   
   .message {
@@ -55,7 +55,7 @@
   
   .prompt-container {
     position: fixed;
-    bottom: 0px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     width: var(--max-body-width);
@@ -78,6 +78,19 @@
     padding: 5px;
   }
   
+  .upload-container {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--max-body-width);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--main-background-color);
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+  }
   .button {
     border: 1px solid var(--border-color);
     padding: 5px;

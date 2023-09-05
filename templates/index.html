@@ -35,12 +35,20 @@
 
         <button type="submit" class="button" id="submit-button">Envoyer</button>
 
-        <button type="button" class="button" id="question-button">
-          Pose-moi une question !
-        </button>
+        <button type="button" class="button" id="question-button"> Pose-moi une question ! </button>
+        
       </form>
 
-      <script src="{{ url_for('static', filename='prompt.js') }}"></script>
+      <form id="upload-form" method="post" class="upload-container">
+        <div>
+          <input type="file" id="file" name="file" style="display: none" />
+          <button type="button" class="button" id="upload-button"> Choisir un fichier</button>
+        </div>
+      </form>
+
+      <script src="{{ url_for('static', filename='prompt.js') }}"> </script>
+      <script src="{{ url_for('static', filename='upload.js') }}"> </script>
+
     </main>
   </body>
 </html>

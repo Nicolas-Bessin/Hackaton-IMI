@@ -85,7 +85,7 @@ chunks = split_text(document)
 
 def gpt3_completion(prompt):
     completion = openai.ChatCompletion.create(
-        model = "gpt-3.0-turbo",
+        model = "gpt-4",
         messages = [
             {"role": "user", "content": prompt}
         ]

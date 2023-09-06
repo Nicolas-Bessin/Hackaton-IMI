@@ -37,7 +37,6 @@ def read_pdf(filename):
             context += page_text
     return context
 
-
 def split_text(text, chunk_size=5000):
     """
     Splits the given text into chunks of approximately the specified chunk size.

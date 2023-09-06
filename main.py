@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
-from src.utils.ask_question_to_pdf import ask_question_to_pdf, gpt3_completion, split_text
+from flask import Flask, render_template, request, redirect
+import os
+from src.utils.ask_question_to_pdf import ask_question_to_pdf, gpt3_completion, split_text, read_pdf
 
 
 app = Flask(__name__)
@@ -16,6 +17,16 @@ def prompt():
 
 @app.route("/upload", methods=["POST"])
 def upload():
-    text = split_text(request.form["text"])
-    return {"text" : text }, 200
+    file = request.files["file"]
+    try:
+        os.mkdir("database")
+    except:
+        pass
+    filepath = f"database/{file.filename}"
+    file.save(filepath)
+
+    document = read_pdf(filepath)
+    chunks = split_text(document)
+
+    return redirect("/")
 

@@ -15,7 +15,7 @@ def hello_world():
 def prompt():
     global context 
     question = request.form["prompt"]
-     answer = gpt3_completion(context + "\n" + question)
+    answer = gpt3_completion(context + "\n" + question)
     context = context + "\n" + question + "\n" + answer
     return {"answer" : answer }, 200
 

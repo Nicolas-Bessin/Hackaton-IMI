@@ -14,7 +14,7 @@ def hello_world():
 
 @app.route("/prompt", methods=["POST"])
 def prompt():
-    global context 
+    global context
     question = request.form["prompt"]
     answer = gpt3_completion(context + "\n" + question)
     context = context + "\n" + question + "\n" + answer

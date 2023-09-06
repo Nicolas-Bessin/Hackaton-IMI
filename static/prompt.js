@@ -56,11 +56,15 @@ const handlePrompt = async (event) => {
 };
 
 function reset() {
-  fetch("/resetcontext").then(response => response.text()).then(message => {console.log(message)})
+  fetch('/resetcontext').then(response => response.text()).then(message => {
+    console.log(message)
+  })
 }
+
 
 promptForm.addEventListener("submit", handlePrompt);
 resetButton.addEventListener("click", reset)
+
 
 const handleQuestionClick = async (event) => {
   appendAIMessage(async () => {
@@ -78,5 +82,3 @@ const handleQuestionClick = async (event) => {
 };
 
 questionButton.addEventListener("click", handleQuestionClick);
-
-export { appendAIMessage };

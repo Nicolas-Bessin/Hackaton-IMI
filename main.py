@@ -21,4 +21,11 @@ def prompt():
     return {"answer": answer}, 200
 
 
+@app.route("/resetcontext")
+def reset():
+    global context
+    context = ""
+    return "FDP"
+
+
 # test

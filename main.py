@@ -25,6 +25,8 @@ def upload():
     try:
         os.mkdir("database")
     except:
+        for filename in os.listdir("database"):
+            os.remove(f"database/{filename}")
         pass
     filepath = f"database/{file.filename}"
     file.save(filepath)

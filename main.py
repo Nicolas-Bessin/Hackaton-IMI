@@ -71,6 +71,11 @@ def answer():
   
 @app.route("/resetcontext")
 def reset():
+    try:
+        for filename in os.listdir("database"):
+            os.remove(f"database/{filename}")
+    except:
+        pass
     global context
     context = ""
     return "FDP"

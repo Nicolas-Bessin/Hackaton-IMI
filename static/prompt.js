@@ -72,3 +72,5 @@ const handleQuestionClick = async (event) => {
 };
 
 questionButton.addEventListener("click", handleQuestionClick);
+
+export { appendAIMessage };

@@ -4,7 +4,7 @@ from src.utils.ask_question_to_pdf import ask_question_to_pdf, gpt3_completion
 
 app = Flask(__name__)
 
-context = " "
+context = ""
 
 @app.route("/")
 def hello_world():
@@ -18,5 +18,8 @@ def prompt():
     context = context + "\n" + question + "\n" + answer
     return {"answer" : answer }, 200
 
-
-##test
+@app.route("/resetcontext")
+def reset():
+    global context
+    context = ""
+    return "FDP"

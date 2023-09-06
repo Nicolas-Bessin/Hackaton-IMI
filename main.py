@@ -9,10 +9,6 @@ context = " "
 
 @app.route("/")
 def hello_world():
-    try:
-        os.remove("database/current_file.pdf")
-    except:
-        pass
     return render_template("index.html")
 
 @app.route("/prompt", methods=["POST"])
@@ -38,7 +34,7 @@ def upload():
     document = read_pdf(filepath)
     chunks = split_text(document)
 
-    return render_template("index.html")
+    return redirect("/")
 
 @app.route("/question", methods=["GET"])
 def question():
@@ -54,3 +50,18 @@ def question():
     context = context + "\n" + answer
     print(answer)
     return {"answer" : answer }, 200
+
+@app.route("/answer", methods=["POST"])
+def answer():
+    global context
+    doc_txt = None
+    if not os.listdir("database"):
+        return {"answer" : "Pas de fichier mis en ligne"}, 200
+    else:
+        document = read_pdf("database/current_file.pdf")
+        doc_txt = split_text(document)[0]
+    answer = request.form["prompt"]
+    context = context + "\n" + answer
+    gpt_validation = gpt3_completion(context, text = doc_txt)
+    context = context + "\n" + gpt_validation
+    return {"answer" : gpt_validation }, 200

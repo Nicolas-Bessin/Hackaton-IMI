@@ -1,5 +1,3 @@
-import { appendAIMessage } from "./prompt.js";
-
 const uploadForm = document.getElementById('upload-form');
 const uploadButton = document.getElementById('upload-button');
 

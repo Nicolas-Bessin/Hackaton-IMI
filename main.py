@@ -19,7 +19,8 @@ def prompt():
     question = request.form["prompt"]
     answer = gpt3_completion(context + "\n" + question)
     context = context + "\n" + question + "\n" + answer
-    return {"answer" : answer }, 200
+    return {"answer": answer}, 200
+
 
 @app.route("/upload", methods=["POST"])
 def upload():
@@ -37,7 +38,8 @@ def upload():
     chunks = split_text(document)
 
     return redirect("/")
-    
+
+
 @app.route("/resetcontext")
 def reset():
     global context

@@ -78,4 +78,4 @@ def reset():
         pass
     global context
     context = ""
-    return "FDP"
+    return redirect("/")

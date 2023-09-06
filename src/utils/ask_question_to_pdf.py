@@ -2,11 +2,11 @@ import openai
 from io import StringIO
 import os
 import fitz
-import openai
 from dotenv import load_dotenv
 from nltk.tokenize import sent_tokenize
 
 load_dotenv()
+
 
 def open_file(filepath):
     with open(filepath, "r", encoding="utf-8") as infile:
@@ -81,20 +81,23 @@ def split_text(text, chunk_size=5000):
 filename = os.path.join(os.path.dirname(__file__), "filename.pdf")
 document = read_pdf(filename)
 chunks = split_text(document)
-#print(chunks[0])
+# print(chunks[0])
+
 
 def gpt3_completion(prompt):
     completion = openai.ChatCompletion.create(
-        model = "gpt-4",
-        messages = [
+        model="gpt-4",
+        messages=[
             {"role": "user", "content": prompt}
         ]
     )
     return completion.choices[0].message.content
 
-def ask_question_to_pdf(question = "Peux tu me résumer ce texte ?"):
+
+def ask_question_to_pdf(question="Peux tu me résumer ce texte ?"):
     prompt = question + "\n" + chunks[0]
-    return gpt3_completion(question)
+    return gpt3_completion(prompt)
+
 
 if __name__ == "__main__":
     print(ask_question_to_pdf())

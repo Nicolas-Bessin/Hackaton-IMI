@@ -93,7 +93,7 @@ def gpt3_completion(prompt):
 
 def ask_question_to_pdf(question = "Peux tu me résumer ce texte ?"):
     prompt = question + "\n" + chunks[0]
-    return gpt3_completion(prompt)
+    return gpt3_completion(question)
 
 if __name__ == "__main__":
     print(ask_question_to_pdf())

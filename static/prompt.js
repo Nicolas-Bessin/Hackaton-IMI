@@ -31,7 +31,7 @@ const handlePrompt = async (event) => {
   // Parse form data in a structured object
   const data = new FormData(event.target);
   promptForm.reset();
-
+  
   let url = "/prompt";
   if (questionButton.dataset.question !== undefined) {
     url = "/answer";
@@ -42,13 +42,14 @@ const handlePrompt = async (event) => {
   }
 
   appendHumanMessage(data.get("prompt"));
-
+  submitButton.disabled = true
   await appendAIMessage(async () => {
     const response = await fetch(url, {
       method: "POST",
       body: data,
     });
     const result = await response.json();
+    submitButton.disabled = false
     return result.answer;
   });
 };

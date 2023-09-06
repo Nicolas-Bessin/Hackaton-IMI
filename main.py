@@ -5,7 +5,7 @@ from src.utils.ask_question_to_pdf import ask_question_to_pdf, gpt3_completion, 
 
 app = Flask(__name__)
 
-context = " "
+context = ""
 
 @app.route("/")
 def hello_world():
@@ -35,3 +35,9 @@ def upload():
     chunks = split_text(document)
 
     return redirect("/")
+    
+@app.route("/resetcontext")
+def reset():
+    global context
+    context = ""
+    return "FDP"

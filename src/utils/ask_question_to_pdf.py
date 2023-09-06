@@ -2,11 +2,11 @@ import openai
 from io import StringIO
 import os
 import fitz
-import openai
 from dotenv import load_dotenv
 from nltk.tokenize import sent_tokenize
 
 load_dotenv()
+
 
 def open_file(filepath):
     with open(filepath, "r", encoding="utf-8") as infile:
@@ -38,15 +38,15 @@ def read_pdf(filename):
 
 def split_text(text, chunk_size=5000):
     """
-    Splits the given text into chunks of approximately the specified chunk size.
+    Splits the given text into chunks of approximately \
+    the specified chunk size.
 
     Args:
     text (str): The text to split.
 
     chunk_size (int): The desired size of each chunk (in characters).
-
-    Returns:
-    List[str]: A list of chunks, each of approximately the specified chunk size.
+    Returns: List[str]: A list of chunks, each of approximately the \
+    specified chunk size.
     """
 
     chunks = []
@@ -93,5 +93,3 @@ def ask_question_to_pdf(text = "", question = "Peux tu me résumer ce texte ?"):
     prompt = question + "\n" + text
     return gpt3_completion(question)
 
-if __name__ == "__main__":
-    print(ask_question_to_pdf())

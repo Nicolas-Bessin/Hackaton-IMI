@@ -2,6 +2,7 @@ const promptForm = document.getElementById("prompt-form");
 const submitButton = document.getElementById("submit-button");
 const questionButton = document.getElementById("question-button");
 const messagesContainer = document.getElementById("messages-container");
+const resetButton = document.getElementById("reset-button");
 
 const appendHumanMessage = (message) => {
   const humanMessageElement = document.createElement("div");
@@ -54,7 +55,16 @@ const handlePrompt = async (event) => {
   });
 };
 
+function reset() {
+  fetch('/resetcontext').then(response => response.text()).then(message => {
+    console.log(message)
+  })
+}
+
+
 promptForm.addEventListener("submit", handlePrompt);
+resetButton.addEventListener("click", reset)
+
 
 const handleQuestionClick = async (event) => {
   appendAIMessage(async () => {

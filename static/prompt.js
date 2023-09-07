@@ -2,7 +2,6 @@ const promptForm = document.getElementById("prompt-form");
 const submitButton = document.getElementById("submit-button");
 const questionButton = document.getElementById("question-button");
 const messagesContainer = document.getElementById("messages-container");
-const resetButton = document.getElementById("reset-button");
 
 const appendHumanMessage = (message) => {
   const humanMessageElement = document.createElement("div");
@@ -55,30 +54,7 @@ const handlePrompt = async (event) => {
   });
 };
 
-function masquerElements() {
-  const messages = document.querySelectorAll(".message");
-  messages.forEach((message) => {
-    message.style.display = "none";
-  });
-}
-
-
-
-async function reset() {
-  masquerElements()
-  await appendAIMessage(async () => {
-    const response = await fetch('/resetcontext', {
-      method: "GET",
-    });
-    const message = await response.text();
-    return message;
-  });
-}
-
-
 promptForm.addEventListener("submit", handlePrompt);
-resetButton.addEventListener("click", reset)
-
 
 const handleQuestionClick = async (event) => {
   appendAIMessage(async () => {
@@ -96,3 +72,5 @@ const handleQuestionClick = async (event) => {
 };
 
 questionButton.addEventListener("click", handleQuestionClick);
+
+export { appendAIMessage };

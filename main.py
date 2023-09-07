@@ -78,5 +78,5 @@ def reset():
         pass
     global context
     context = ""
-    message = "test"
+    message = "Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai."
     return message

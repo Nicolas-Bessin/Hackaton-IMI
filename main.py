@@ -15,9 +15,17 @@ def context_to_text(json_c, get_all = True):
     return textual_c
 
 
+
+def get_pdf_name():
+    if not os.path.isdir("database") or not os.listdir("database"):
+        return "Aucun fichier mis en ligne"
+    else:
+        return os.listdir("database")[0]
+
+
 @app.route("/")
 def hello_world():
-    return render_template("index.html")
+    return render_template("index.html", filename=get_pdf_name())
 
 
 @app.route("/prompt", methods=["POST"])
@@ -28,7 +36,8 @@ def prompt():
     if not os.path.isdir("database") or not os.listdir("database"):
         pass
     else:
-        document = read_pdf("database/current_file.pdf")
+        filename = "database/" + os.listdir("database")[0]
+        document = read_pdf(filename)
         doc_txt = split_text(document)[0]
     answer = gpt3_completion(context_to_text(context, True) + question, text = doc_txt)
     context["human" + str(len(context))] = [question, True]
@@ -45,22 +54,20 @@ def upload():
         for filename in os.listdir("database"):
             os.remove(f"database/{filename}")
         pass
-    filepath = "database/current_file.pdf"
+    filepath = f"database/{file.filename}"
     file.save(filepath)
-
-    document = read_pdf(filepath)
-    chunks = split_text(document)
-
     return redirect("/")
+
 
 @app.route("/question", methods=["GET"])
 def question():
     global context
     doc_txt = None
     if not os.path.isdir("database") or not os.listdir("database"):
-        return {"answer" : "Pas de fichier mis en ligne"}, 200
+        return {"answer": "Pas de fichier mis en ligne"}, 200
     else:
-        document = read_pdf("database/current_file.pdf")
+        filename = "database/" + os.listdir("database")[0]
+        document = read_pdf(filename)
         doc_txt = split_text(document)[0]
     context["human"+ str(len(context))] = ["Peux tu me poser une question sur ce texte ?", False]
     answer = gpt3_completion(context_to_text(context, True), text = doc_txt)
@@ -72,9 +79,10 @@ def answer():
     global context
     doc_txt = None
     if not os.path.isdir("database") or not os.listdir("database"):
-        return {"answer" : "Pas de fichier mis en ligne"}, 200
+        return {"answer": "Pas de fichier mis en ligne"}, 200
     else:
-        document = read_pdf("database/current_file.pdf")
+        filename = "database/" + os.listdir("database")[0]
+        document = read_pdf(filename)
         doc_txt = split_text(document)[0]
     answer = request.form["prompt"]
     context["human"+ str(len(context))] = [answer, True]

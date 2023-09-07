@@ -31,7 +31,7 @@ def upload():
         for filename in os.listdir("database"):
             os.remove(f"database/{filename}")
         pass
-    filepath = f"database/{file.filename}"
+    filepath = "database/current_file.pdf"
     file.save(filepath)
 
     document = read_pdf(filepath)
@@ -39,12 +39,43 @@ def upload():
 
     return redirect("/")
 
+@app.route("/question", methods=["GET"])
+def question():
+    global context
+    doc_txt = None
+    if not os.listdir("database"):
+        return {"answer" : "Pas de fichier mis en ligne"}, 200
+    else:
+        document = read_pdf("database/current_file.pdf")
+        doc_txt = split_text(document)[0]
+    context = context + "\n" + "Peux tu me poser une question sur ce texte ?"
+    answer = gpt3_completion(context, text = doc_txt)
+    context = context + "\n" + answer
+    print(answer)
+    return {"answer" : answer }, 200
 
-@app.route("/resetcontext", methods=["GET"])
+@app.route("/answer", methods=["POST"])
+def answer():
+    global context
+    doc_txt = None
+    if not os.listdir("database"):
+        return {"answer" : "Pas de fichier mis en ligne"}, 200
+    else:
+        document = read_pdf("database/current_file.pdf")
+        doc_txt = split_text(document)[0]
+    answer = request.form["prompt"]
+    context = context + "\n" + answer
+    gpt_validation = gpt3_completion(context, text = doc_txt)
+    context = context + "\n" + gpt_validation
+    return {"answer" : gpt_validation }, 200
+  
+@app.route("/resetcontext")
 def reset():
+    try:
+        for filename in os.listdir("database"):
+            os.remove(f"database/{filename}")
+    except:
+        pass
     global context
     context = ""
-    message = """Le contexte à bien été réinitialisé.
-    \n Je suis ton AIssistant de cours personnel !
-    \nPose-moi une question sur le cours et je te répondrai."""
-    return message
+    return redirect("/")

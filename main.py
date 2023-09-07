@@ -17,7 +17,13 @@ def hello_world():
 def prompt():
     global context
     question = request.form["prompt"]
-    answer = gpt3_completion(context + "\n" + question)
+    doc_txt = None
+    if not os.listdir("database"):
+        return {"answer" : "Pas de fichier mis en ligne"}, 200
+    else:
+        document = read_pdf("database/current_file.pdf")
+        doc_txt = split_text(document)[0]
+    answer = gpt3_completion(context + "\n" + question, text = doc_txt)
     context = context + "\n" + question + "\n" + answer
     return {"answer": answer}, 200
 

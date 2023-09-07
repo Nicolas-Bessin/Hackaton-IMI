@@ -5,7 +5,7 @@ function handleUpload() {
     document.getElementById("file-input").click();
 };
 
-uploadForm.onchange = function() {
+uploadForm.onchange = function () {
     uploadForm.submit();
 };
 

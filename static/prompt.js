@@ -31,7 +31,7 @@ const handlePrompt = async (event) => {
   // Parse form data in a structured object
   const data = new FormData(event.target);
   promptForm.reset();
-  
+
   let url = "/prompt";
   if (questionButton.dataset.question !== undefined) {
     url = "/answer";

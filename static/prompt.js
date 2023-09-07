@@ -55,7 +55,17 @@ const handlePrompt = async (event) => {
   });
 };
 
+function masquerElements() {
+  const messages = document.querySelectorAll(".message");
+  messages.forEach((message) => {
+    message.style.display = "none";
+  });
+}
+
+
+
 async function reset() {
+  masquerElements()
   await appendAIMessage(async () => {
     const response = await fetch('/resetcontext', {
       method: "GET",

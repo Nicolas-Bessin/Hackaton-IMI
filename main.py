@@ -44,5 +44,7 @@ def upload():
 def reset():
     global context
     context = ""
-    message = "Le contexte à bien été réinitialisé"
+    message = """Le contexte à bien été réinitialisé.
+    \n Je suis ton AIssistant de cours personnel !
+    \nPose-moi une question sur le cours et je te répondrai."""
     return message

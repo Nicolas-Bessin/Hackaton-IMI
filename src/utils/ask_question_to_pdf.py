@@ -37,6 +37,7 @@ def read_pdf(filename):
             context += page_text
     return context
 
+
 def split_text(text, chunk_size=5000):
     """
     Splits the given text into chunks of approximately \
@@ -88,5 +89,3 @@ def gpt3_completion(prompt):
         model="gpt-4", messages=[{"role": "user", "content": prompt}]
     )
     return completion.choices[0].message.content
-
-

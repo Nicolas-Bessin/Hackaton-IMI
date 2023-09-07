@@ -40,8 +40,9 @@ def upload():
     return redirect("/")
 
 
-@app.route("/resetcontext")
+@app.route("/resetcontext", methods=["GET"])
 def reset():
     global context
     context = ""
-    return "FDP"
+    message = "Le contexte à bien été réinitialisé"
+    return message

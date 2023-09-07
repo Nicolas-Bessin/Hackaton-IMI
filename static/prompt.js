@@ -55,10 +55,14 @@ const handlePrompt = async (event) => {
   });
 };
 
-function reset() {
-  fetch('/resetcontext').then(response => response.text()).then(message => {
-    console.log(message)
-  })
+async function reset() {
+  await appendAIMessage(async () => {
+    const response = await fetch('/resetcontext', {
+      method: "GET",
+    });
+    const message = await response.text();
+    return message;
+  });
 }
 
 

@@ -78,4 +78,5 @@ def reset():
         pass
     global context
     context = ""
-    return redirect("/")
+    message = "test"
+    return message

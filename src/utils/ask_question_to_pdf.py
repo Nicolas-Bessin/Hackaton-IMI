@@ -76,21 +76,19 @@ def split_text(text, chunk_size=5000):
         chunks.append(current_chunk.getvalue())
     return chunks
 
-def gpt3_completion(prompt, text = None):
+def gpt3_completion(prompt, text=None):
     if text is None:
         initial_context = "Tu es un assitant"
     else:
         initial_context = "Nous travaillons dans le contexte de ce texte : " + text
     completion = openai.ChatCompletion.create(
-        model = "gpt-4",
-        messages = [
+        model="gpt-4",
+        messages=[
             {"role": "system", "content": initial_context},
             {"role": "user", "content": prompt}
         ]
     )
     return completion.choices[0].message.content
 
-def ask_question_to_pdf(text = "", question = "Peux tu me résumer ce texte ?"):
-    prompt = question + "\n" + text
+def ask_question_to_pdf(text="", question="Peux tu me résumer ce texte ?"):
     return gpt3_completion(question)
-

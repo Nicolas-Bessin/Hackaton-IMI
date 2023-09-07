@@ -51,7 +51,6 @@ def question():
     context = context + "\n" + "Peux tu me poser une question sur ce texte ?"
     answer = gpt3_completion(context, text = doc_txt)
     context = context + "\n" + answer
-    print(answer)
     return {"answer" : answer }, 200
 
 @app.route("/answer", methods=["POST"])

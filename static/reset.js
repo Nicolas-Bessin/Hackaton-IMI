@@ -1,6 +1,7 @@
 import { appendAIMessage } from "./prompt.js";
 
 const resetButton = document.getElementById("reset-button");
+const indicator = document.getElementById("file-indicator");
 
 function masquerElements() {
     const messages = document.querySelectorAll(".message");
@@ -9,10 +10,9 @@ function masquerElements() {
     });
   }
   
-  
-  
 async function reset() {
-    masquerElements()
+    masquerElements();
+    indicator.innerHTML = "Fichier : Aucun fichier mis en ligne";
     await appendAIMessage(async () => {
       const response = await fetch('/resetcontext', {
         method: "GET",

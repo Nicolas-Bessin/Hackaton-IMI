@@ -86,11 +86,12 @@
     width: var(--max-body-width);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 100px;
     background-color: var(--main-background-color);
     padding: 20px;
     border-top: 1px solid var(--border-color);
   }
+
   .button {
     border: 1px solid var(--border-color);
     padding: 5px;

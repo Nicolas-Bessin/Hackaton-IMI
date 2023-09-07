@@ -4,8 +4,19 @@ from src.utils.ask_question_to_pdf import gpt3_completion, split_text, read_pdf
 
 app = Flask(__name__)
 
+
 default_message = "Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai."
-context = ""
+context = {}
+
+def context_to_text(json_c, get_all = True):
+    textual_c = ""
+    for x in json_c:
+        if get_all or json_c[x][1]:
+            textual_c = textual_c + json_c[x][0] + "\n"
+
+    return textual_c
+
+ 
 
 
 def get_pdf_name():
@@ -31,8 +42,9 @@ def prompt():
         filename = "database/" + os.listdir("database")[0]
         document = read_pdf(filename)
         doc_txt = split_text(document)[0]
-    answer = gpt3_completion(context + "\n" + question, text=doc_txt)
-    context = context + "\n" + question + "\n" + answer
+    answer = gpt3_completion(context_to_text(context, True) + question, text = doc_txt)
+    context["human" + str(len(context))] = [question, True]
+    context["ai" + str(len(context))] = [answer, True]
     return {"answer": answer}, 200
 
 
@@ -60,11 +72,10 @@ def question():
         filename = "database/" + os.listdir("database")[0]
         document = read_pdf(filename)
         doc_txt = split_text(document)[0]
-    context = context + "\n" + "Peux tu me poser une question sur ce texte ?"
-    answer = gpt3_completion(context, text=doc_txt)
-    context = context + "\n" + answer
-    return {"answer": answer}, 200
-
+    context["human"+ str(len(context))] = ["Peux tu me poser une question sur ce texte ?", False]
+    answer = gpt3_completion(context_to_text(context, True), text = doc_txt)
+    context["ai" + str(len(context))] = [answer, True]
+    return {"answer" : answer }, 200
 
 @app.route("/answer", methods=["POST"])
 def answer():
@@ -77,12 +88,11 @@ def answer():
         document = read_pdf(filename)
         doc_txt = split_text(document)[0]
     answer = request.form["prompt"]
-    context = context + "\n" + answer
-    gpt_validation = gpt3_completion(context, text=doc_txt)
-    context = context + "\n" + gpt_validation
-    return {"answer": gpt_validation}, 200
-
-
+    context["human"+ str(len(context))] = [answer, True]
+    gpt_validation = gpt3_completion(context_to_text(context, True), text = doc_txt)
+    context["ai" + str(len(context))] = [gpt_validation, True]
+    return {"answer" : gpt_validation }, 200
+  
 @app.route("/resetcontext")
 def reset():
     try:
@@ -91,6 +101,6 @@ def reset():
     except:
         pass
     global context
-    context = ""
+    context = {}
     message = default_message
     return message

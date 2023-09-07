@@ -4,6 +4,8 @@ from src.utils.ask_question_to_pdf import gpt3_completion, split_text, read_pdf
 
 app = Flask(__name__)
 
+
+default_message = "Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai."
 context = {}
 
 
@@ -56,7 +58,7 @@ def upload():
         pass
     filepath = f"database/{file.filename}"
     file.save(filepath)
-    return redirect("/")
+    return {"answer": "Le fichier a bien été mis en ligne. \n" + default_message}, 200
 
 
 @app.route("/question", methods=["GET"])
@@ -104,5 +106,5 @@ def reset():
         pass
     global context
     context = {}
-    message = "Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai."
+    message = default_message
     return message

@@ -18,7 +18,7 @@ def prompt():
     global context
     question = request.form["prompt"]
     doc_txt = None
-    if not os.listdir("database"):
+    if not os.path.isdir("database") or not os.listdir("database"):
         return {"answer" : "Pas de fichier mis en ligne"}, 200
     else:
         document = read_pdf("database/current_file.pdf")
@@ -49,7 +49,7 @@ def upload():
 def question():
     global context
     doc_txt = None
-    if not os.listdir("database"):
+    if not os.path.isdir("database") or not os.listdir("database"):
         return {"answer" : "Pas de fichier mis en ligne"}, 200
     else:
         document = read_pdf("database/current_file.pdf")
@@ -63,7 +63,7 @@ def question():
 def answer():
     global context
     doc_txt = None
-    if not os.listdir("database"):
+    if not os.path.isdir("database") or not os.listdir("database"):
         return {"answer" : "Pas de fichier mis en ligne"}, 200
     else:
         document = read_pdf("database/current_file.pdf")

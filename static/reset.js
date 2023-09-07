@@ -23,3 +23,5 @@ async function reset() {
 }
 
 resetButton.addEventListener("click", reset);
+
+export { masquerElements };

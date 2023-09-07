@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect
 import os
 from src.utils.ask_question_to_pdf import gpt3_completion, split_text, read_pdf
 
-
 app = Flask(__name__)
 
 context = ""
@@ -26,7 +25,7 @@ def prompt():
     question = request.form["prompt"]
     doc_txt = None
     if not os.path.isdir("database") or not os.listdir("database"):
-        return {"answer": "Pas de fichier mis en ligne"}, 200
+        pass
     else:
         filename = "database/" + os.listdir("database")[0]
         document = read_pdf(filename)

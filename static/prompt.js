@@ -2,6 +2,11 @@ const promptForm = document.getElementById("prompt-form");
 const submitButton = document.getElementById("submit-button");
 const questionButton = document.getElementById("question-button");
 const messagesContainer = document.getElementById("messages-container");
+const mainContainer = document.getElementById("main-container");
+const prompt = document.getElementById("prompt");
+const choisirButton = document.getElementById("uplaod-button")
+const resetButton = document.getElementById("reset-button")
+const indicateurfichierButton = document.getElementById("file-indicator")
 
 const appendHumanMessage = (message) => {
   const humanMessageElement = document.createElement("div");
@@ -74,3 +79,29 @@ const handleQuestionClick = async (event) => {
 questionButton.addEventListener("click", handleQuestionClick);
 
 export { appendAIMessage };
+
+// Récupérer le bouton "Dark mode" et les éléments que vous voulez mettre en mode sombre
+const darkModeToggle = document.getElementById("darkModeToggle");
+const body = document.body; // Le corps du document
+const elementsToToggle = document.querySelectorAll('.dark-mode-toggle'); // Ajoutez la classe "dark-mode-toggle" aux éléments que vous voulez mettre en mode sombre
+
+// Écouter l'événement de clic sur le bouton "Dark mode"
+darkModeToggle.addEventListener("click", () => {
+    // Ajouter ou supprimer la classe "dark-mode" au corps du document
+    body.classList.toggle("dark-mode");
+    messagesContainer.classList.toggle("dark-mode");
+    promptForm.classList.toggle("dark-mode");
+    submitButton.classList.toggle("dark-mode");
+    questionButton.classList.toggle("dark-mode");
+    mainContainer.classList.toggle("dark-mode");
+    prompt.classList.toggle("dark-mode");
+    choisirButton.classList.toggle("dark-mode");
+    resetButton.classList.toggle("dark-mode");
+    indicateurfichierButton.classList.toggle("dark-mode");
+    
+    // Parcourir les éléments à basculer et ajouter ou supprimer la classe "dark-mode"
+    elementsToToggle.forEach(element => {
+        element.classList.toggle("dark-mode");
+    });
+});
+

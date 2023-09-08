@@ -179,3 +179,13 @@ body {
     transform: translate(calc(var(--loader-bullet-size) * 2), 0);
   }
 }
+
+/* Styles pour le mode sombre */
+.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  --secondary-color: #000000;
+  --main-background-color: #000000;
+}
+
+

@@ -22,6 +22,7 @@ def save_context_to_json():
 
 atexit.register(save_context_to_json)
 
+
 def context_to_text(json_c, get_all=True):
     textual_c = ""
     for x in json_c:

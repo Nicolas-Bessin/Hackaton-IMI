@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 import os
 from src.utils.ask_question_to_pdf import gpt3_completion, split_text, read_pdf
 

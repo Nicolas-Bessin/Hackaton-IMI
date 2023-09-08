@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 import os, atexit, json
 from src.utils.ask_question_to_pdf import gpt3_completion, split_text, read_pdf
 
 app = Flask(__name__)
 
+
+default_message = "Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai."
 context = {}
 
 if os.path.exists("context.json"):
@@ -19,7 +21,6 @@ def save_context_to_json():
 
 
 atexit.register(save_context_to_json)
-
 
 def context_to_text(json_c, get_all=True):
     textual_c = ""
@@ -70,7 +71,7 @@ def upload():
         pass
     filepath = f"database/{file.filename}"
     file.save(filepath)
-    return redirect("/")
+    return {"answer": "Le fichier a bien été mis en ligne. \n" + default_message}, 200
 
 
 @app.route("/question", methods=["GET"])
@@ -118,5 +119,5 @@ def reset():
         pass
     global context
     context = {}
-    message = "Je suis ton AIssistant de cours personnel ! Pose-moi une question sur le cours et je te répondrai."
+    message = default_message
     return message

@@ -1,10 +1,22 @@
 from flask import Flask, render_template, request, redirect
-import os
+import os, atexit, json
 from src.utils.ask_question_to_pdf import gpt3_completion, split_text, read_pdf
 
 app = Flask(__name__)
 
 context = {}
+
+if os.path.exists('context.json'):
+    with open('context.json', 'r') as file:
+        context = json.load(file)
+else:
+    context = {}
+
+def save_context_to_json():
+    with open('context.json', 'w') as file:
+        json.dump(context, file)
+
+atexit.register(save_context_to_json)
 
 def context_to_text(json_c, get_all = True):
     textual_c = ""
@@ -25,7 +37,7 @@ def get_pdf_name():
 
 @app.route("/")
 def hello_world():
-    return render_template("index.html", filename=get_pdf_name())
+    return render_template("index.html", filename=get_pdf_name(), context=context)
 
 
 @app.route("/prompt", methods=["POST"])

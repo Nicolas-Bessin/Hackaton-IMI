@@ -16,9 +16,23 @@
     <section id="messages-container" class="messages-container">
       <div class="message message-ai">
         Je suis ton AIssistant de cours personnel ! Pose-moi une question sur
-        le cours et je te répondrai.
+        le cours et je te répondrai. 
       </div>
+      <script>
+        var context = JSON.parse('{{ context|tojson|safe }}')
+
+        var section = document.getElementById("messages-container");
+        n = Object.keys(context).length
+        for (let i = 0; i < n; i++) {
+          x = i % 2 == 0 ? "human" + i : "ai" + i
+          tab = context[x]
+          cl = (x[0] == "a" ? "\"message message-ai\"" : "\"message message-human\"")
+          section.innerHTML += "<div class=" + cl + ">" + (tab[1] ? tab[0] : "") + "</div>"
+          
+        }
+      </script>
     </section>
+
 
     <form id="prompt-form" class="prompt-container">
       <label for="prompt" class="prompt-label">Message</label>

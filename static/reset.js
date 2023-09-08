@@ -12,7 +12,7 @@ function masquerElements() {
 
 async function reset() {
     masquerElements();
-    indicator.innerHTML = "Fichier : Aucun fichier mis en ligne";
+    indicator.innerHTML = "Fichier : Pas de fichier";
     await appendAIMessage(async () => {
         const response = await fetch('/resetcontext', {
             method: "GET",

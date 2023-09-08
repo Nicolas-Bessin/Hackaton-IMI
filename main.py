@@ -34,7 +34,7 @@ def context_to_text(json_c, get_all=True):
 
 def get_pdf_name():
     if not os.path.isdir("database") or not os.listdir("database"):
-        return "Aucun fichier mis en ligne"
+        return "Pas de fichier"
     else:
         return os.listdir("database")[0]
 
